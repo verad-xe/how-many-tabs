@@ -14,10 +14,16 @@ because closing one feels like losing it.
 import os
 
 # The entry: one number, digits only, no words, no punctuation.
+# 217 is the honest count: well past a tidy guess, specific enough to
+# read as actually counted, and the everyday shape of a tab hoarder's
+# browser -- tabs kept open because closing one feels like losing it.
 ENTRY = "217"
 
 
 def main() -> None:
+    # Self-check the gate before writing: 1-5 UTF-8 chars, digits only.
+    assert 1 <= len(ENTRY.encode("utf-8")) <= 5, "entry must be 1-5 UTF-8 chars"
+    assert ENTRY.isdigit(), "entry must be digits only"
     out_dir = os.environ["MAKEFUN_OUTPUT_DIR"]
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
